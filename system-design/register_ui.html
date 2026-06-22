@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบรับสมัครสมาชิก - Online Bookstore</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 600px;
+            padding: 2.5rem;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #34495e;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="tel"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #dcdde1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .dynamic-section {
+            display: none;
+            background: #f8fcfd;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-submit {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        /* Common Fields */
+        .common-fields {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>สมัครสมาชิก</h2>
+    <p class="subtitle">ระบบร้านขายหนังสือออนไลน์</p>
+
+    <form id="registerForm">
+        <!-- เลือกประเภทสมาชิก -->
+        <label>เลือกประเภทสมาชิกของคุณ <span style="color:red;">*</span></label>
+        <div class="radio-group">
+            <label><input type="radio" name="memberType" value="general" checked onchange="toggleFields()"> บุคคลทั่วไป</label>
+            <label><input type="radio" name="memberType" value="student" onchange="toggleFields()"> นักเรียน/นักศึกษา</label>
+            <label><input type="radio" name="memberType" value="shop" onchange="toggleFields()"> ร้านค้า</label>
+        </div>
+
+        <!-- Section: บุคคลทั่วไป -->
+        <div id="section-general" class="dynamic-section" style="display: block;">
+            <div class="form-group">
+                <label>รหัสบัตรประชาชน (13 หลัก)</label>
+                <input type="text" placeholder="x-xxxx-xxxxx-xx-x" maxlength="13">
+            </div>
+            <div class="form-group">
+                <label>ชื่อ - นามสกุล</label>
+                <input type="text" placeholder="นาย สมชาย ใจดี">
+            </div>
+            <div class="form-group">
+                <label>วันเกิด</label>
+                <input type="date">
+            </div>
+        </div>
+
+        <!-- Section: นักเรียน/นักศึกษา -->
+        <div id="section-student" class="dynamic-section">
+            <div class="form-group">
+                <label>รหัสนักเรียน / นักศึกษา</label>
+                <input type="text" placeholder="รหัสประจำตัวนักศึกษา">
+            </div>
+            <div class="form-group">
+                <label>ชื่อ - นามสกุล</label>
+                <input type="text" placeholder="นาย สมชาย รักเรียน">
+            </div>
+            <div class="form-group">
+                <label>ชื่อสถานศึกษา</label>
+                <input type="text" placeholder="ระบุชื่อโรงเรียน หรือ มหาวิทยาลัย">
+            </div>
+            <div class="form-group">
+                <label>แนบรูปภาพบัตรนักศึกษา</label>
+                <input type="file" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label>วันหมดอายุของบัตร</label>
+                <input type="date">
+            </div>
+            <div class="form-group">
+                <label>วันเกิด</label>
+                <input type="date">
+            </div>
+        </div>
+
+        <!-- Section: ร้านค้า -->
+        <div id="section-shop" class="dynamic-section">
+            <div class="form-group">
+                <label>ชื่อผู้ประกอบการ (ชื่อ - นามสกุล)</label>
+                <input type="text" placeholder="นาย สมชาย ขายดี">
+            </div>
+            <div class="form-group">
+                <label>ชื่อสถานประกอบการ (ชื่อร้านค้า)</label>
+                <input type="text" placeholder="ร้านหนังสือสมชายบุ๊คส์">
+            </div>
+            <div class="form-group">
+                <label>เลขทะเบียนนิติบุคคล</label>
+                <input type="text" placeholder="กรอกเลขจดทะเบียน">
+            </div>
+            <div class="form-group">
+                <label>แนบเอกสารนิติบุคคล (PDF/Image)</label>
+                <input type="file" accept=".pdf, image/*">
+            </div>
+        </div>
+
+        <!-- ข้อมูลติดต่อ (ใช้ร่วมกันทุกประเภท) -->
+        <div class="common-fields">
+            <div class="form-group">
+                <label>อีเมล</label>
+                <input type="email" placeholder="example@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>หมายเลขโทรศัพท์</label>
+                <input type="tel" placeholder="08x-xxx-xxxx" maxlength="10" required>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="alert('จำลองการสมัครสมาชิกสำเร็จ!')">สมัครสมาชิก</button>
+    </form>
+</div>
+
+<script>
+    function toggleFields() {
+        const type = document.querySelector('input[name="memberType"]:checked').value;
+        
+        // Hide all
+        document.getElementById('section-general').style.display = 'none';
+        document.getElementById('section-student').style.display = 'none';
+        document.getElementById('section-shop').style.display = 'none';
+
+        // Show selected
+        if(type === 'general') {
+            document.getElementById('section-general').style.display = 'block';
+        } else if(type === 'student') {
+            document.getElementById('section-student').style.display = 'block';
+        } else if(type === 'shop') {
+            document.getElementById('section-shop').style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
